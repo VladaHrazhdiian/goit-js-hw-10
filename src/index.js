@@ -4,53 +4,58 @@ import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 
 const selectEl = document.querySelector('.breed-select');
-const divEl = document.querySelector('cat-info');
+const divEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 
+// off loader before init
 loaderEl.style.display = 'none';
 
+// array of cats
 let catsArr = null;
 
 function initSlimSelect() {
-    const slimSelect = new SlimSelect({
-        select: document.querySelector('.breed-select'),
-        settings: {
-            showSearch: false,
-        },
-    });
-    return slimSelect;
+  const slimSelect = new SlimSelect({
+    select: document.querySelector('.breed-select'),
+    settings: {
+      showSearch: false,
+    },
+  });
+
+  return slimSelect;
 }
 
 function showSlimSelect() {
-    selectEl.style.display = 'flex';
-    initSlimSelect();
+  selectEl.style.display = 'flex';
+  initSlimSelect();
 }
+
+// hide select before request
 selectEl.style.display = 'none';
 
 fetchBreeds()
-    .then(data => {
-        catsArr = data;
-        data.forEach(el => {
-            const oprionEl = document.createElement('option');
-            oprionEl.value = el.id;
-            oprionEl.textContent = el.name;
-            selectEl.append(oprionEl);
-            selectEl.classList.remove('is-hidden');
-        });
-
-        loaderEl.style.display = 'none';
-        showSlimSelect();
-    })
-
-    .catch(er => {
-        console.warn(err);
-        loaderEl.style.display = 'none';
-        Notiflix.Notify.failure(
-            'Oops! Something went wrong! Try reloading the page!'
-        );
+  .then(data => {
+    catsArr = data;
+    data.forEach(el => {
+      const oprionEl = document.createElement('option');
+      oprionEl.value = el.id;
+      oprionEl.textContent = el.name;
+      selectEl.append(oprionEl);
+      selectEl.classList.remove('is-hidden');
     });
-    
-    selectEl.addEventListener('change', event => {
+    loaderEl.style.display = 'none';
+
+    //init SELECT AFTER FETCH DATA
+    showSlimSelect();
+  })
+  .catch(err => {
+    console.warn(err);
+    loaderEl.style.display = 'none';
+    Notiflix.Notify.failure(
+      'Oops! Something went wrong! Try reloading the page!'
+    );
+  });
+
+selectEl.addEventListener('change', event => {
   divEl.innerHTML = '';
   fetchCatByBreed(event.target.value)
     .then(data => {
