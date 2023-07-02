@@ -7,10 +7,10 @@ const selectEl = document.querySelector('.breed-select');
 const divEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 
-// off loader before init
+
 loaderEl.style.display = 'none';
 
-// array of cats
+
 let catsArr = null;
 
 function initSlimSelect() {
@@ -29,7 +29,6 @@ function showSlimSelect() {
   initSlimSelect();
 }
 
-// hide select before request
 selectEl.style.display = 'none';
 
 fetchBreeds()
@@ -44,7 +43,6 @@ fetchBreeds()
     });
     loaderEl.style.display = 'none';
 
-    //init SELECT AFTER FETCH DATA
     showSlimSelect();
   })
   .catch(err => {
