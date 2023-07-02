@@ -1,0 +1,83 @@
+.breed-select {
+  margin-bottom: 10px;
+  max-width: 250px;
+}
+.loader {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+.loader::before,
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  inset: 0px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  animation: prixClipFix 2s linear infinite;
+}
+.loader::after {
+  transform: rotate3d(90, 90, 0, 180deg);
+  border-color: #ff3d00;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes prixClipFix {
+  0% {
+    clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+  }
+  50% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  75%,
+  100% {
+    clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
+  }
+}
+
+.cat-info {
+  display: flex;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.cat-info img {
+  min-width: 250px;
+  min-height: 250px;
+}
+
+.cat-info > div {
+  max-width: 600px;
+}
+
+.cat-temperament {
+  font-weight: 600;
+}
+
+.cat-header {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.is-hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
